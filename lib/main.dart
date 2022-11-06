@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'quiz_brain.dart';
 
 void main() => runApp(Quizzler());
@@ -32,17 +33,44 @@ class _QuizPageState extends State<QuizPage> {
   void checkAnswer(bool pickAnswer) {
     bool checkAnswer = quizBrain.getQuestionAnswer();
 
-    if (checkAnswer == pickAnswer) {
-      print("The Answer Is right!");
-    } else {
-      print("Wrong Answer!");
-    }
     setState(() {
+      if (checkAnswer == pickAnswer) {
+        print("The Answer Is right!");
+
+        scoreKeeper.add(const Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        print("Wrong Answer!");
+
+        scoreKeeper.add(const Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
       quizBrain.nextQuestion();
-      scoreKeeper.add(const Icon(
-        Icons.check,
-        color: Colors.green,
-      ));
+      if (quizBrain.getQuestionNumber() == quizBrain.getListLength() - 1) {
+        Alert(
+          context: context,
+          title: "Finished!",
+          desc: "Congratulation!\n You have complete the Quiz.",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Reset Quiz",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                quizBrain.resetQuiz();
+                Navigator.pop(context);
+              },
+              width: 120,
+            )
+          ],
+        ).show();
+        scoreKeeper.clear();
+      }
     });
   }
 
@@ -106,7 +134,6 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
-        //TODO: Add a Row here as your score keeper
         Row(
           children: scoreKeeper,
         ),

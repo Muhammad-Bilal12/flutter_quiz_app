@@ -34,12 +34,17 @@ int _questionNumber = 0;
 
 
 int getQuestionNumber ()=> _questionNumber; 
+int getListLength ()=> _questionList.length; 
 
 void nextQuestion (){
 
   if(_questionNumber < _questionList.length){
     _questionNumber++ ;
   }
+}
+
+void resetQuiz(){
+  _questionNumber = 0;
 }
 
 String getQuestionText () => _questionList[_questionNumber].questionText!;
