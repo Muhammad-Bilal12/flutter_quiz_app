@@ -29,6 +29,23 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = <Icon>[];
   QuizBrain quizBrain = QuizBrain();
 
+  void checkAnswer(bool pickAnswer) {
+    bool checkAnswer = quizBrain.getQuestionAnswer();
+
+    if (checkAnswer == pickAnswer) {
+      print("The Answer Is right!");
+    } else {
+      print("Wrong Answer!");
+    }
+    setState(() {
+      quizBrain.nextQuestion();
+      scoreKeeper.add(const Icon(
+        Icons.check,
+        color: Colors.green,
+      ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // print(quizBrain.getQuestionText());
@@ -66,22 +83,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked true.
-                bool checkAnswer = quizBrain.getQuestionAnswer();
-
-                if (checkAnswer == true) {
-                  print("The Answer Is right!");
-                } else {
-                  print("Wrong Answer!");
-                }
-
-                setState(() {
-                  quizBrain.nextQuestion();
-                  scoreKeeper.add(const Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ));
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -99,23 +101,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
-
-                bool checkAnswer = quizBrain.getQuestionAnswer();
-
-                if (checkAnswer == false) {
-                  print("The Answer Is right!");
-                } else {
-                  print("Wrong Answer!");
-                }
-
-                setState(() {
-                  quizBrain.nextQuestion();
-                  scoreKeeper.add(const Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ));
-                });
+                checkAnswer(false);
               },
             ),
           ),
