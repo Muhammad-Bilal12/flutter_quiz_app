@@ -4,8 +4,5 @@ class Question {
 
 // Constructor Function
 
-  Question({String? q, bool? a}) {
-    questionText = q;
-    questionAnswer = a;
-  }
+  Question({required this.questionText, required this.questionAnswer});
 }
