@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'questions.dart';
+import 'quiz_brain.dart';
 
 void main() => runApp(Quizzler());
 
@@ -27,18 +27,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = <Icon>[];
-
-// Questuin class Instance
-  Question q1 = Question(
-      q: 'You can lead a cow down stairs but not up stairs.', a: false);
-
-  List<Question> questionList = [
-    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-    Question(
-        q: 'Approximately one quarter of human bones are in the feet.',
-        a: true),
-    Question(q: 'A slug\'s blood is green.', a: false),
-  ];
+  QuizBrain quizBrain = QuizBrain();
 
   int questionNumber = 0;
 
@@ -54,7 +43,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionList[questionNumber].questionText!,
+                quizBrain.questionList[questionNumber].questionText!,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -79,7 +68,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool checkAnswer = questionList[questionNumber].questionAnswer!;
+                bool checkAnswer =
+                    quizBrain.questionList[questionNumber].questionAnswer!;
 
                 if (checkAnswer == true) {
                   print("The Answer Is right!");
@@ -113,7 +103,8 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
 
-                bool checkAnswer = questionList[questionNumber].questionAnswer!;
+                bool checkAnswer =
+                    quizBrain.questionList[questionNumber].questionAnswer!;
 
                 if (checkAnswer == false) {
                   print("The Answer Is right!");
