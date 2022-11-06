@@ -2,7 +2,8 @@ import 'questions.dart';
 
 class QuizBrain{
 
-   List<Question> questionList = [
+int _questionNumber = 0;
+ final List<Question> _questionList = [
     Question(q:'Some cats are actually allergic to humans',a: true),
     Question(q:'You can lead a cow down stairs but not up stairs.', a: false),
     Question(q:'Approximately one quarter of human bones are in the feet.',a: true),
@@ -21,7 +22,7 @@ class QuizBrain{
     Question(
         q:'The total surface area of two human lungs is approximately 70 square metres.',
         a:true),
-    Question(q:'Google was originally called \"Backrub\".',a: true),
+    Question(q:'Google was originally called "Backrub".',a: true),
     Question(
         q:'Chocolate affects a dog\'s heart and nervous system; a few ounces are enough to kill a small dog.',
         a:true),
@@ -30,5 +31,19 @@ class QuizBrain{
         a:true),
 
     ];
+
+
+int getQuestionNumber ()=> _questionNumber; 
+
+void nextQuestion (){
+
+  if(_questionNumber < _questionList.length){
+    _questionNumber++ ;
+  }
+}
+
+String getQuestionText () => _questionList[_questionNumber].questionText!;
+bool getQuestionAnswer () => _questionList[_questionNumber].questionAnswer!;
+
 
 }

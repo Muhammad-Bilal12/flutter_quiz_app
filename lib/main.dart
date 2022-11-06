@@ -29,10 +29,9 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = <Icon>[];
   QuizBrain quizBrain = QuizBrain();
 
-  int questionNumber = 0;
-
   @override
   Widget build(BuildContext context) {
+    // print(quizBrain.getQuestionText());
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionList[questionNumber].questionText!,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -68,8 +67,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool checkAnswer =
-                    quizBrain.questionList[questionNumber].questionAnswer!;
+                bool checkAnswer = quizBrain.getQuestionAnswer();
 
                 if (checkAnswer == true) {
                   print("The Answer Is right!");
@@ -78,7 +76,7 @@ class _QuizPageState extends State<QuizPage> {
                 }
 
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                   scoreKeeper.add(const Icon(
                     Icons.check,
                     color: Colors.green,
@@ -103,8 +101,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
 
-                bool checkAnswer =
-                    quizBrain.questionList[questionNumber].questionAnswer!;
+                bool checkAnswer = quizBrain.getQuestionAnswer();
 
                 if (checkAnswer == false) {
                   print("The Answer Is right!");
@@ -113,7 +110,7 @@ class _QuizPageState extends State<QuizPage> {
                 }
 
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                   scoreKeeper.add(const Icon(
                     Icons.close,
                     color: Colors.red,
